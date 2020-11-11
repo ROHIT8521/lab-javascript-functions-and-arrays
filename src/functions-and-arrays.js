@@ -1,8 +1,11 @@
 // Progression #1: Greatest of the two numbers
-function greatestOfTwoNumbers(num1, num2) {
-  if (num1 > num2) return num1;
-  else if (num1 === num2) return num1;
-  else return num2;
+
+function greatestOfTwoNumbers(number1, number2) {
+  if (number1 > number2) {
+    return number1;
+  } else {
+    return number2;
+  }
 }
 
 // Progression #2: The lengthy word
@@ -14,46 +17,40 @@ const words = [
   "pearl",
   "orchard",
   "crackpot",
-  "crocodilo",
 ];
+
 function findScaryWord(words) {
-  if (words.length == 0) {
-    return null;
-  } else if (words.length == 1) {
-    return words[0];
-  }
-  for (var i = 0; i < words.length - 1; i++) {
-    for (j = 0; j < words.length - 1; j++) {
-      if (words[j].length < words[j + 1].length) {
-        var temp = words[j];
-        words[j] = words[j + 1];
-        words[j + 1] = temp;
-      }
+  var lengthyword;
+  let maxLength = 0;
+  var i = 0;
+  if (words.length == 0) return null; //condition to check if the array is empty//
+  while (i < words.length) {
+    var largestword = words[i].length; //store the length of the first word in largestWord//
+    if (largestword > maxLength) {
+      maxLength = largestword;
+      lengthyword = words[i];
     }
+    i += 1;
   }
-  if (words[0].length > words[1].length) return words[0];
-  else return words[0];
+  return lengthyword;
 }
-findScaryWord(words);
 
 // Progression #3: Net Price
-const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
+const prices = [200, 120, 100, 108, 135, 162, 25, 170, 80, 110];
 
-function netPrice(numbers) {
-  let sum = 0;
-  if (numbers.length === 0) return 0;
-  else if (numbers.length === 1) {
-    sum = numbers[0];
-    return sum;
-  } else {
-    for (var i = 0; i < numbers.length; i++) {
-      sum = sum + numbers[i];
+function netPrice(prices) {
+  var sum = 0;
+  for (var i = 0; i < prices.length; i++) {
+    //checking for array of numbers//
+    if (isNaN(prices[i])) {
+      continue;
     }
-    return sum;
+    sum += prices[i];
   }
+  return sum;
 }
 
-// progression #3.1
+//Bonus Progression
 const mixedArr = [
   63,
   122,
@@ -66,52 +63,42 @@ const mixedArr = [
   38,
   156,
 ];
-
 function add(mixedArr) {
-  let i,
-    total = 0;
-  if (mixedArr.length === 0) {
-    return 0;
-  } else if (mixedArr.length === 1) return mixedArr[0];
-  else {
-    for (i = 0; i < mixedArr.length; i++) {
-      if (typeof mixedArr[i] === "number") {
-        total = total + mixedArr[i];
-      } else if (typeof mixedArr[i] === "string") {
-        total = total + mixedArr[i].length;
-      } else {
-        if (mixedArr[i] === true) {
-          total = total + 1;
-        } else {
-          total = total + 0;
-        }
+  var numSum = 0;
+  var strSum = 0;
+  var boolSum = 0;
+  for (i = 0; i < mixedArr.length; i++) {
+    if (typeof mixedArr[i] == "number") {
+      numSum += mixedArr[i];
+    } else if (typeof mixedArr[i] == "string") {
+      strSum += mixedArr[i].length;
+    } else if (typeof mixedArr[i] == "boolean") {
+      if (mixedArr[i] == true) {
+        boolSum += 1;
       }
-    }
-    if (total === 0) {
-      return 0;
     } else {
-      return total;
+      throw new Error("Unsupported data type sir or ma'am");
     }
   }
+  return numSum + strSum + boolSum;
 }
 
 // Progression #4: Calculate the average
-function midpoint(numbers) {
-  return netPrice(numbers) / numbers.length;
-}
-midpoint(numbers);
 
 // Progression 4.1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function midPointOfLevels(numbersAvg) {
-  let arrTotal = 0;
-  if (numbersAvg.length == 0) return null;
-  for (i = 0; i < numbersAvg.length; i++) {
-    arrTotal = arrTotal + numbersAvg[i];
+function midPointOfLevels(numberAvg) {
+  if (numberAvg.length == 0) {
+    return null;
+  } else {
+    var sum = 0;
+    for (var i = 0; i < numberAvg.length; i++) {
+      sum += numberAvg[i];
+      var avg = sum / numberAvg.length;
+    }
   }
-
-  return arrTotal / numbersAvg.length;
+  return avg;
 }
 
 // Progression 4.2: Array of strings
@@ -129,23 +116,41 @@ const wordsArr = [
 ];
 
 function averageWordLength(wordsArr) {
-  let uniqSum = 0;
-  if (wordsArr.length == 0) return null;
-  for (i = 0; i < wordsArr.length; i++) {
-    uniqSum = uniqSum + wordsArr[i].length;
+  if (wordsArr.length == 0) {
+    return null;
+  } else {
+    var sum = 0;
+    for (var i = 0; i < wordsArr.length; i++) {
+      sum += wordsArr[i].length;
+      var avg = sum / wordsArr.length;
+    }
   }
-  return uniqSum / wordsArr.length;
+  return avg;
 }
 
-// Progression 4.3
-function avg(mixedArr) {
-  let sum = add(mixedArr);
-  let avg;
-  if (mixedArr.length == 0) return null;
-  else {
-    avg = sum / mixedArr.length;
-    return avg;
+//Bonus 4.3
+const arr = [63, 122, "audi", 61, true, "volvo", "20", "lamborghini", 38, 156];
+function avg(arr) {
+  var numSum = 0;
+  var strSum = 0;
+  var boolSum = 0;
+  if (arr.length == 0) {
+    return null;
   }
+  for (i = 0; i < arr.length; i++) {
+    if (typeof arr[i] == "number") {
+      numSum += arr[i];
+    } else if (typeof arr[i] == "string") {
+      strSum += arr[i].length;
+    } else if (typeof arr[i] == "boolean") {
+      if (arr[i] == true) {
+        boolSum += 1;
+      }
+    }
+  }
+  var finalsum = numSum + strSum + boolSum;
+  //to.Fixed confines the number to have 2 digits after the decimal point//
+  return ((finalsum / arr.length).toFixed(2) * 100) / 100;
 }
 
 // Progression #5: Unique arrays
@@ -165,38 +170,19 @@ const wordsUnique = [
 ];
 
 function uniqueArray(wordsUnique) {
-  if (wordsUnique.length == 0) return null;
-  wordsUnique.filter((item, index) => wordsUnique.indexOf(item) == index);
-  return wordsUnique;
+  if (wordsUnique.length == 0) {
+    return null;
+  }
+  var newarr = [];
+  wordsUnique.forEach((i) => {
+    if (!newarr.includes(i)) {
+      newarr.push(i);
+    }
+  });
+  return newarr;
 }
 
-// function uniqueArray(uniqueArray) {
-//   var len = uniqueArray.length;
-//   var outputArray = [];
-//   var count = 0;
-//   var start = false;
-//   for (j = 0; j < uniqueArray.length; j++) {
-//     for (k = 0; k < uniqueArray.length; k++) {
-//       if (uniqueArray[j] == outputArray[k]) {
-//         start = true;
-//       }
-//     }
-//     count++;
-//     if (count == 1 && start == false) {
-//       outputArray.push(uniqueArray[j]);
-//     }
-//     start = false;
-//     count = 0;
-//   }
-//   if (len === 0) {
-//     return null;
-//   } else {
-//     return outputArray;
-//   }
-// }
-
-//Progression #6: Find elements
-
+// Progression #6: Find elements
 const wordsFind = [
   "machine",
   "subset",
@@ -207,17 +193,17 @@ const wordsFind = [
   "truth",
   "disobedience",
 ];
-let i = 0;
-function searchElement(wordsFind, searchWord) {
-  if (wordsFind.length == 0) return null;
-  for (i = 0; i < wordsFind.length; i++) {
-    if (wordsFind[i] == searchWord) {
-      return true;
+function searchElement(wordsFind, element) {
+  if (wordsFind.length == 0) {
+    return null;
+  } else {
+    for (i = 0; i < wordsFind.length; i++) {
+      if (wordsFind[i] == element) {
+        return true;
+      }
     }
   }
-  return false;
 }
-searchElement(wordsFind, "trouble");
 
 // Progression #7: Count repetition
 const wordsCount = [
@@ -233,18 +219,18 @@ const wordsCount = [
   "disobedience",
   "matter",
 ];
-
-//const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
-
-function howManyTimesElementRepeated(wordsFind, searchWord) {
-  let i = 0,
-    count = 0;
-  for (i = 0; i < wordsFind.length; i++) {
-    if (wordsFind[i] == searchWord) {
-      count++;
+function howManyTimesElementRepeated(wordsCount, element) {
+  var counter = 0;
+  if (wordsCount.length == 0) {
+    return 0;
+  }
+  for (var i = 0; i < wordsCount.length; i++) {
+    if (wordsCount[i] == element) {
+      counter++;
     }
   }
-  return count;
+
+  return counter;
 }
 
 // Progression #8: Bonus
